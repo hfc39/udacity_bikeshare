@@ -1,0 +1,45 @@
+def get_filters():
+
+    print('Hello! Let\'s explore some US bikeshare data!')
+    # City input, validated to get the right input
+    city = input('Please enter a city from this list (chicago, new york city, washington): \n')
+    city = city.lower()
+
+    while city not in {'chicago', 'new york city', 'washington'}:
+        try:
+            city = input('Invalid input, Chose one (chicago, new york city, washington))\n')
+            city = city.lower()
+        except city in {'chicago', 'new york city', 'washington'}:
+            break
+
+    # Month input, validated to get the right input
+    month = input('Please enter a month from the list (all, january, february, ... , june): \n')
+    month = month.lower()
+
+    while month.lower() not in {'all', 'january', 'february', 'march', 'april',
+        'may', 'june', 'july', 'august', 'september',
+        'october', 'november', 'december'}:
+        try:
+            month = input('Invalid input, please enter a months from the list (all, january, february, ... , june): \n')
+            month = month.lower()
+        except month.lower() in {'all', 'january', 'february', 'march', 'april',
+        'may', 'june', 'july', 'august', 'september',
+        'october', 'november', 'december'}:
+            break
+
+    # Day input, validated to get the right input
+    day = input('Please enter a day from the list (all, monday, tuesday, ... sunday):\n')
+    day = day.lower()
+
+    while day.lower() not in {'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'}:
+
+        try:
+            day = input('Invalid input, please enter a day from the list (all, monday, tuesday, ... sunday):\n')
+            day = day.lower()
+        except day.lower() in {'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'}:
+            break
+
+    print('-'*40)
+    return city, month, day
+
+get_filters()

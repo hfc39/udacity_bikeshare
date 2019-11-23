@@ -7,6 +7,8 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'washington': 'washington.csv' }
 
 def get_filters():
+    month = 'all'
+    day = 'all'
     """
     Asks user to specify a city, month, and day to analyze.
 
@@ -16,39 +18,36 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    while True:
-        city = input('\nWould you like to see data for Chicago, New York, or Washington?').lower()
+    city = input('\nWould you like to see data for Chicago, New York, or Washington?\n').lower()
+    city_list = ['chicago','new york','washington']
+    while city not in city_list:
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-        if city not in ['chicago','new york','washington']:
-            print('Please choose from Chicago, New York and Washington.')
-            continue
-        else:
+        try:
+            city = input('Please choose from Chicago, New York and Washington.\n').lower()
+        except city in city_list:
             return city
-    while True:
-        time = input('Would you like to filter the data by month, day, both or not at all? Type \“none\” for no time filter.').lower()
-    # get user input for month (all, january, february, ... , june)
-        if time in ['month','both']:
-            month = input('Which month? January, February, March, April, May, or June?').lower
-            month_list = ['january', 'february','march','april','may', 'june','jan','feb','mar','apr','jun',1,2,3,4,5,6]
-            while month not in month_list:
-                print('Please put in the right month.')
-                continue
+            break
+
+    month = input('Please enter a month from below: January, February, March, April, May, June,or all.\n').lower()
+    month_list = ['january', 'february','march','april','may', 'june','jan','feb','mar','apr','jun','all']
+    while month not in month_list:
+        try:
+            month = input('Please put in the right month: all, january, february, ... , june...etc.\n').lower()
+        except month in month_list:
             return month
-        elif ti
-    if time == 'day':
-        day = int(input('Which day? Please type your response as an integer (e.g,. 1=Sunday)'))
-        if day > 7:
-            print('Please enter effective weekday number.')
+            break
 
-
-
-
-    # get user input for day of week (all, monday, tuesday, ... sunday)
+    day = int(input('Which day? Please type your response as an integer (e.g,. 0=all,1=Sunday,2=Monday...etc.)\n'))
+    day_list = range(0,8)
+    while day not in day_list:
+        try:
+            day = int(input('Please put in the right day.\n'))
+        except day in day_list:
+            return day
 
 
     print('-'*40)
-    return city, month, day
-
+    print('You\'ve chose the city of {}, with the month of {}, and day of {}'.format(city, month,day))
 
 def load_data(city, month, day):
     """
