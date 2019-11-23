@@ -92,87 +92,6 @@ def load_data(city, month, day):
     return df
 
 
-def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
-
-    print('\nCalculating The Most Frequent Times of Travel...\n')
-    start_time = time.time()
-
-    # display the most common month
-    x = df['month'].mode()[0]
-    month_name = {1:'January',2:'February',3:'March',4:'April',5:'May',6:'June'}
-    print('The most common month: {}'.format(month_name[x]))
-    # display the most common day of week
-    print('The most common day of week: {}'.format(df['day'].mode()[0]))
-    # display the most common start hour
-    print('The most common start hour: {}'.format(df['hour'].mode()[0]))
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
-
-
-def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
-
-    print('\nCalculating The Most Popular Stations and Trip...\n')
-    start_time = time.time()
-
-    # display most commonly used start station
-    print('The most commonly used start station: {}'.format(df['Start Station'].mode()[0]))
-
-    # display most commonly used end station
-    print('The most commonly used end station: {}'.format(df['End Station'].mode()[0]))
-
-    # display most frequent combination of start station and end station trip
-    combo = df[['Start Station','End Station']].mode()
-    print('The most frequent combination of start station and end station trip: \n{}'.format(combo.iloc[0]))
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
-
-
-def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
-
-    print('\nCalculating Trip Duration...\n')
-    start_time = time.time()
-
-    print('The total travel time: {} seconds.'.format(df['Trip Duration'].sum()))
-    avg = df['Trip Duration'].mean()
-    min,sec = avg // 60,avg %60
-    print('The average travel time: {}min {}sec'.format(min,sec))
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
-
-
-def user_stats(df):
-    """Displays statistics on bikeshare users."""
-
-    print('\nCalculating User Stats...\n')
-    start_time = time.time()
-
-    # Display counts of user types
-    user_types = df['User Type'].value_counts()
-    print('User types counts:',len(user_types.index))
-    # Display counts of gender
-    if 'Gender' in df.columns:
-        gender_type = df['Gender'].value_counts()
-        print('Gender types counts:',len(gender_type.index))
-    else:
-        print('Gender is not included in the data.')
-
-    # Display earliest, most recent, and most common year of birth
-    if 'Birth Year' in df.columns:
-        print('Earliest year of birth: {}'.format(df['Birth Year'].min()))
-        print('Most recent year of birth: {}'.format(df['Birth Year'].max()))
-        print('Most common year of birth: {}'.format(df['Birth Year'].mode()[0]))
-    else:
-        print('Birth year is not included in the data.')
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
-
 def print_data(df):
     row_start = 0
     row_end = 5
@@ -182,25 +101,15 @@ def print_data(df):
             print(df.iloc[row_start:row_end])
             row_start +=5
             row_end +=5
+
         else:
             break
 
 def main():
-    while True:
-        city, month, day = get_filters()
-        df = load_data(city, month, day)
-
-        time_stats(df)
-        station_stats(df)
-        trip_duration_stats(df)
-        user_stats(df)
-        print_data(df)
+    city, month, day = get_filters()
+    df = load_data(city, month, day)
+    print_data(df)
 
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
-            break
 
-
-if __name__ == "__main__":
-	main()
+main()
