@@ -99,9 +99,9 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-    print('The most common month with mode: {}'.format(df['month'].mode()[0]))
+    print('The most common month: {}'.format(df['month'].mode()[0]))
     # display the most common day of week
-    print('The most common day of week in mode: {}'.format(df['day'].mode()[0]))
+    print('The most common day of week: {}'.format(df['day'].mode()[0]))
     # display the most common start hour
     print('The most common start hour: {}'.format(df['hour'].mode()[0]))
 
@@ -116,13 +116,14 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-
+    print('The most commonly used start station: {}'.format(df['Start Station'].mode()[0]))
 
     # display most commonly used end station
-
+    print('The most commonly used end station: {}'.format(df['End Station'].mode()[0]))
 
     # display most frequent combination of start station and end station trip
-
+    combo = df[['Start Station','End Station']].mode()
+    print('The most frequent combination of start station and end station trip: \n{}'.format(combo.iloc[0]))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -135,10 +136,14 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-
+    sec = df['Trip Duration'].sum() % 60
+    min = df['Trip Duration'].sum() // 60
+    print('The total travel time: {}min {}sec.'.format(min,sec))
 
     # display mean travel time
-
+    sec1 = df['Trip Duration'].mean() % 60
+    min1 = df['Trip Duration'].mean() // 60
+    print('The average travel time: {}min {}sec.'.format(min,sec))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -151,13 +156,13 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-
+    print('還沒想到')
 
     # Display counts of gender
-
+    print('還沒想到')
 
     # Display earliest, most recent, and most common year of birth
-
+    print('還沒想到')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
