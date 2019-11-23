@@ -151,13 +151,15 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-    print('還沒想到')
+    print('Counts of user types: {}'.format(df['User Type'].unique().size()))
 
     # Display counts of gender
-    print('還沒想到')
+    print('Counts of gender: {}'.format(df['Gender'].unique().size()))
 
     # Display earliest, most recent, and most common year of birth
-    print('還沒想到')
+    print('Earliest year of birth: {}'.format(df['Birth Year'].min()))
+    print('Most recent year of birth: {}'.format(df['Birth Year'].max()))
+    print('Most common year of birth: {}'.format(df['Birth Year'].mode()[0]))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
