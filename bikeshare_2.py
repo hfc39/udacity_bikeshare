@@ -107,6 +107,8 @@ def time_stats(df):
     # display the most common start hour
     print('The most common start hour: {}'.format(df['hour'].mode()[0]))
 
+
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -126,6 +128,8 @@ def station_stats(df):
     # display most frequent combination of start station and end station trip
     combo = df[['Start Station','End Station']].mode()
     print('The most frequent combination of start station and end station trip: \n{}'.format(combo.iloc[0]))
+
+    #print('The least used start station: {}'.format(df['Start Station'].value_counts()))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -170,8 +174,13 @@ def user_stats(df):
     else:
         print('Birth year is not included in the data.')
 
+    #Display user frequency
+        print('')
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+
+
 
 def print_data(df):
     row_start = 0

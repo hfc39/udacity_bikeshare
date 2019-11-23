@@ -91,6 +91,31 @@ def load_data(city, month, day):
 
     return df
 
+def time_stats(df):
+    """Displays statistics on the most frequent times of travel."""
+
+    print('\nCalculating The Most Frequent Times of Travel...\n')
+    start_time = time.time()
+
+    # display the most common month
+    x = df['month'].mode()[0]
+    month_name = {1:'January',2:'February',3:'March',4:'April',5:'May',6:'June'}
+    print('The most common month: {}'.format(month_name[x]))
+    # display the most common day of week
+    print('The most common day of week: {}'.format(df['day'].mode()[0]))
+    # display the most common start hour
+    print('The most common start hour: {}'.format(df['hour'].mode()[0]))
+    # display the least start hour
+    least = df['hour'].value_counts().tail(1)
+    print(type(least))
+    print(least[0])
+    #print('The least starting hour: {}'.format(df['hour'].value_counts().tail(1)))
+
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
+
 
 def print_data(df):
     row_start = 0
@@ -108,6 +133,7 @@ def print_data(df):
 def main():
     city, month, day = get_filters()
     df = load_data(city, month, day)
+    time_stats(df)
     print_data(df)
 
 
