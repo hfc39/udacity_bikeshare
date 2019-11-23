@@ -37,17 +37,19 @@ def get_filters():
             return month
             break
 
-    day = int(input('Which day? Please type your response as an integer (e.g,. 0=all,1=Sunday,2=Monday...etc.)\n'))
-    day_list = range(0,8)
+    day = input('Pick a day from below: all, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday...etc.)\n').lower()
+    day_list = ['all','sunday','monday','tuesday','wednesday','thursday','friday','saturday']
+
     while day not in day_list:
         try:
-            day = int(input('Please put in the right day.\n'))
+            day = input('Please put in the right day.\n')
         except day in day_list:
             return day
 
 
     print('-'*40)
     print('You\'ve chose the city of {}, with the month of {}, and day of {}'.format(city, month,day))
+    return city, month, day
 
 def load_data(city, month, day):
     """
@@ -69,7 +71,8 @@ def load_data(city, month, day):
 
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day'] = df['Start Time'].dt.weekday_name
+    df['hour'] = df['Start Time'].dt.hour
 
 
     # filter by month if applicable
@@ -84,7 +87,7 @@ def load_data(city, month, day):
     # filter by day of week if applicable
     if day != 'all':
         # filter by day of week to create the new dataframe
-        df = df[df['day_of_week'] == day.title()]
+        df = df[df['day'] == day.title()]
 
     return df
 
@@ -96,13 +99,11 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-
-
+    print('The most common month with mode: {}'.format(df['month'].mode()[0]))
     # display the most common day of week
-
-
+    print('The most common day of week in mode: {}'.format(df['day'].mode()[0]))
     # display the most common start hour
-
+    print('The most common start hour: {}'.format(df['hour'].mode()[0]))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
