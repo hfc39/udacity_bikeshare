@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
+              'new york': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
 def get_filters():
@@ -29,7 +29,7 @@ def get_filters():
             break
 
     month = input('Please enter a month from below: January, February, March, April, May, June,or all.\n').lower()
-    month_list = ['january', 'february','march','april','may', 'june','jan','feb','mar','apr','jun','all']
+    month_list = ['january', 'february','march','april','may', 'june','all']
     while month not in month_list:
         try:
             month = input('Please put in the right month: all, january, february, ... , june...etc.\n').lower()
@@ -61,6 +61,30 @@ def load_data(city, month, day):
         df - Pandas DataFrame containing city data filtered by month and day
     """
 
+    # load data file into a dataframe
+    df = pd.read_csv(CITY_DATA[city])
+
+    # convert the Start Time column to datetime
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+
+    # extract month and day of week from Start Time to create new columns
+    df['month'] = df['Start Time'].dt.month
+    df['day_of_week'] = df['Start Time'].dt.weekday_name
+
+
+    # filter by month if applicable
+    if month != 'all':
+        # use the index of the months list to get the corresponding int
+        months = ['january', 'february', 'march', 'april', 'may', 'june','july','august','september','october','november','december']
+        month = months.index(month)+1
+
+        # filter by month to create the new dataframe
+        df = df[df['month'] == month]
+
+    # filter by day of week if applicable
+    if day != 'all':
+        # filter by day of week to create the new dataframe
+        df = df[df['day_of_week'] == day.title()]
 
     return df
 
