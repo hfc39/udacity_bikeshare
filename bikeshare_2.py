@@ -99,7 +99,9 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-    print('The most common month: {}'.format(df['month'].mode()[0]))
+    x = df['month'].mode()[0]
+    month_name = {1:'January',2:'February',3:'March',4:'April',5:'May',6:'June'}
+    print('The most common month: {}'.format(month_name[x]))
     # display the most common day of week
     print('The most common day of week: {}'.format(df['day'].mode()[0]))
     # display the most common start hour
@@ -151,15 +153,22 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-    print('Counts of user types: {}'.format(df['User Type'].unique().size()))
-
+    user_types = df['User Type'].value_counts()
+    print('User types counts:',len(user_types.index))
     # Display counts of gender
-    print('Counts of gender: {}'.format(df['Gender'].unique().size()))
+    if 'Gender' in df.columns:
+        gender_type = df['Gender'].value_counts()
+        print('Gender types counts:',len(gender_type.index))
+    else:
+        print('Gender is not included in the data.')
 
     # Display earliest, most recent, and most common year of birth
-    print('Earliest year of birth: {}'.format(df['Birth Year'].min()))
-    print('Most recent year of birth: {}'.format(df['Birth Year'].max()))
-    print('Most common year of birth: {}'.format(df['Birth Year'].mode()[0]))
+    if 'Birth Year' in df.columns:
+        print('Earliest year of birth: {}'.format(df['Birth Year'].min()))
+        print('Most recent year of birth: {}'.format(df['Birth Year'].max()))
+        print('Most common year of birth: {}'.format(df['Birth Year'].mode()[0]))
+    else:
+        print('Birth year is not included in the data.')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
